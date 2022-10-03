@@ -2,7 +2,7 @@ defmodule BeamDemoWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  # alias BeamDemo.Accounts
+  alias BeamDemo.Accounts
   alias BeamDemoWeb.Router.Helpers, as: Routes
   alias BeamDemoWeb.{AmUserAuth, DbUserAuth}
 
@@ -14,7 +14,7 @@ defmodule BeamDemoWeb.UserAuth do
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
   @doc """
-  Logs the db_user in.
+  Logs the user in.
 
   It renews the session ID and clears the whole session
   to avoid fixation attacks. See the renew_session
@@ -26,7 +26,7 @@ defmodule BeamDemoWeb.UserAuth do
   if you are not using LiveView.
   """
   def log_in_user(conn, user, params \\ %{}) do
-    token = Accounts.generate_am_user_session_token(db_user)
+    token = Accounts.generate_am_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
     conn
@@ -80,10 +80,10 @@ defmodule BeamDemoWeb.UserAuth do
   end
 
   @doc """
-  Authenticates the db_user by looking into the session
+  Authenticates the user by looking into the session
   and remember me token.
   """
-  def fetch_current_user(conn, opts) do
+  def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_am_user_by_session_token(user_token)
 
@@ -91,7 +91,7 @@ defmodule BeamDemoWeb.UserAuth do
   end
 
   @doc """
-  Used for routes that require the db_user to not be authenticated.
+  Used for routes that require the user to not be authenticated.
   """
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] do
@@ -104,9 +104,9 @@ defmodule BeamDemoWeb.UserAuth do
   end
 
   @doc """
-  Used for routes that require the db_user to be authenticated.
+  Used for routes that require the user to be authenticated.
 
-  If you want to enforce the db_user email is confirmed before
+  If you want to enforce the user email is confirmed before
   they use the application at all, here would be a good place.
   """
 

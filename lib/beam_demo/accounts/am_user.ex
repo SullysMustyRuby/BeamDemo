@@ -31,6 +31,10 @@ defmodule BeamDemo.Accounts.AmUser do
     |> to_struct()
   end
 
+  def update_email_changeset(%__MODULE__{} = am_user, %{"email" => email}) do
+    %{am_user | email: email}
+  end
+
   def valid_password?(%__MODULE__{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
@@ -39,6 +43,11 @@ defmodule BeamDemo.Accounts.AmUser do
   def valid_password?(_, _) do
     Bcrypt.no_user_verify()
     false
+  end
+
+  defp cast(%{"email" => email, "password" => password}, am_user) do
+    am_user_attrs = Map.from_struct(am_user)
+    Enum.into(%{email: email, password: password}, am_user_attrs)
   end
 
   defp cast(attrs, am_user) do

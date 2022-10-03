@@ -6,8 +6,11 @@ defmodule BeamDemoWeb.UserRegistrationController do
   alias BeamDemoWeb.UserAuth
 
   def new(conn, _params) do
-    changeset = Accounts.change_am_user_registration(%AmUser{})
-    render(conn, "new.html", changeset: changeset)
+    # changeset = Accounts.change_am_user_registration(%AmUser{})
+    # render(conn, "new.html", changeset: changeset)
+    conn
+    |> assign(:error_messages, nil)
+    |> render("new.html")
   end
 
   def create(conn, %{"user" => user_params}) do

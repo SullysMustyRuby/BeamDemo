@@ -3,10 +3,10 @@ defmodule BeamDemoWeb.UserAuthLive do
 
   alias BeamDemo.Accounts
 
-  def on_mount(_, params, %{"user_token" => user_token} = _session, socket) do
+  def on_mount(_, _params, %{"user_token" => user_token} = _session, socket) do
     socket =
       socket
-      |> assign(:current_user, Accounts.get_user_by_session_token(user_token))
+      |> assign(:current_user, Accounts.get_am_user_by_session_token(user_token))
 
     if socket.assigns.current_user do
       {:cont, socket}

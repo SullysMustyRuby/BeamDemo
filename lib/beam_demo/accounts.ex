@@ -154,6 +154,14 @@ defmodule BeamDemo.Accounts do
     |> Ecto.Changeset.apply_action(:update)
   end
 
+  def apply_am_user_email(am_user, password, attrs) do
+    if AmUser.valid_password?(am_user, password) do
+      am_user
+      |> update_email_changeset
+      |> AmUserStore.write()
+    end
+  end
+
   @doc """
   Updates the db_user email using the given token.
 

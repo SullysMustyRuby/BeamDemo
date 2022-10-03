@@ -36,7 +36,7 @@ defmodule BeamDemoWeb.WrongLive do
     <h3>It's <%= @time %></h3>
     <h3>Games played: <%= @played %></h3>
     <pre>
-      <%= @current_db_user.email %>
+      <%= @current_user.email %>
       <%= @session_id %>
     </pre>
     """

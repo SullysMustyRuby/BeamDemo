@@ -53,12 +53,13 @@ defmodule BeamDemoWeb.Router do
   scope "/", BeamDemoWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    live_session :default, on_mount: BeamDemoWeb.DbUserAuthLive do
+    live_session :default, on_mount: BeamDemoWeb.UserAuthLive do
       live "/guess", WrongLive
     end
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
+    post "/users/settings", UserSettingsController, :update
     # get "/db_users/settings/confirm_email/:token", DbUserSettingsController, :confirm_email
   end
 

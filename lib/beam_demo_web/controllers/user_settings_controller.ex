@@ -4,10 +4,12 @@ defmodule BeamDemoWeb.UserSettingsController do
   alias BeamDemo.Accounts
   alias BeamDemoWeb.UserAuth
 
-  plug :assign_email_and_password_changesets
+  # plug :assign_email_and_password_changesets
 
   def edit(conn, _params) do
-    render(conn, "edit.html")
+    conn
+    |> assign(:error_messages, nil)
+    |> render("edit.html")
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
@@ -15,7 +17,7 @@ defmodule BeamDemoWeb.UserSettingsController do
     user = conn.assigns.current_user
 
     case Accounts.apply_am_user_email(user, password, user_params) do
-      {:ok, applied_user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(
           :info,
@@ -23,8 +25,10 @@ defmodule BeamDemoWeb.UserSettingsController do
         )
         |> redirect(to: Routes.user_settings_path(conn, :edit))
 
-      {:error, changeset} ->
-        render(conn, "edit.html", email_changeset: changeset)
+      {:error, message} ->
+        conn
+        |> assign(:error_messages, message)
+        |> render(conn, "edit.html")
     end
   end
 
@@ -39,8 +43,10 @@ defmodule BeamDemoWeb.UserSettingsController do
         |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
         |> UserAuth.log_in_am_user(db_user)
 
-      {:error, changeset} ->
-        render(conn, "edit.html", password_changeset: changeset)
+      {:error, message} ->
+        conn
+        |> assign(:error_messages, message)
+        |> render(conn, "edit.html")
     end
   end
 
@@ -58,11 +64,11 @@ defmodule BeamDemoWeb.UserSettingsController do
   #   end
   # end
 
-  defp assign_email_and_password_changesets(conn, _opts) do
-    user = conn.assigns.current_user
+  # defp assign_email_and_password_changesets(conn, _opts) do
+  #   user = conn.assigns.current_user
 
-    conn
-    |> assign(:email_changeset, Accounts.change_am_user_email(user))
-    |> assign(:password_changeset, Accounts.change_am_user_password(user))
-  end
+  #   conn
+  #   |> assign(:email_changeset, Accounts.change_am_user_email(user))
+  #   |> assign(:password_changeset, Accounts.change_am_user_password(user))
+  # end
 end

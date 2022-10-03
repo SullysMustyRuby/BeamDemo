@@ -1,7 +1,7 @@
 <h1>Register</h1>
 
-<.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
-  <%= if @changeset.action do %>
+<.form let={f} for={@conn} action={Routes.user_registration_path(@conn, :create)} as={:user}>
+  <%= if @error_messages do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
