@@ -1,0 +1,41 @@
+<h1>Listing Addresses</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.setting_index_path(@socket, :index)}>
+    <.live_component
+      module={BeamDemoWeb.SettingLive.FormComponent}
+      id={@setting.key_name || :new}
+      title={@page_title}
+      action={@live_action}
+      setting={@setting}
+      return_to={Routes.setting_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="settinges">
+    <%= for setting <- @settings do %>
+      <tr id={"setting-#{setting.key_name}"}>
+        <td><%= setting.key_name %></td>
+        <td><%= setting.value %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.setting_show_path(@socket, :show, setting.key_name) %></span>
+          <span><%= live_patch "Edit", to: Routes.setting_index_path(@socket, :edit, setting.key_name) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: setting.key_name, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Setting", to: Routes.setting_index_path(@socket, :new) %></span>

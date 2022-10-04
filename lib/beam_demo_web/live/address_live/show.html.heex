@@ -1,0 +1,53 @@
+<h1>Show Address</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.address_show_path(@socket, :show, @address.uuid)}>
+    <.live_component
+      module={BeamDemoWeb.AddressLive.FormComponent}
+      id={@address.uuid}
+      title={@page_title}
+      action={@live_action}
+      address={@address}
+      states={@states}
+      current_user={@current_user}
+      return_to={Routes.address_show_path(@socket, :show, @address.uuid)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>User uuid:</strong>
+    <%= @address.user_uuid %>
+  </li>
+
+  <li>
+    <strong>Street 1:</strong>
+    <%= @address.street_1 %>
+  </li>
+
+  <li>
+    <strong>Street 2:</strong>
+    <%= @address.street_2 %>
+  </li>
+
+  <li>
+    <strong>City:</strong>
+    <%= @address.city %>
+  </li>
+
+  <li>
+    <strong>State code:</strong>
+    <%= @address.state_code %>
+  </li>
+
+  <li>
+    <strong>Zip code:</strong>
+    <%= @address.zip_code %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.address_show_path(@socket, :edit, @address.uuid), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.address_index_path(@socket, :index), class: "button" %></span>

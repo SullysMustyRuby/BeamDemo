@@ -1,0 +1,49 @@
+<h1>Listing Addresses</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.address_index_path(@socket, :index)}>
+    <.live_component
+      module={BeamDemoWeb.AddressLive.FormComponent}
+      id={@address.uuid || :new}
+      title={@page_title}
+      action={@live_action}
+      address={@address}
+      current_user={@current_user}
+      states={@states}
+      return_to={Routes.address_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Street 1</th>
+      <th>Street 2</th>
+      <th>City</th>
+      <th>State code</th>
+      <th>Zip code</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="addresses">
+    <%= for address <- @addresses do %>
+      <tr id={"address-#{address.uuid}"}>
+        <td><%= address.street_1 %></td>
+        <td><%= address.street_2 %></td>
+        <td><%= address.city %></td>
+        <td><%= address.state_code %></td>
+        <td><%= address.zip_code %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.address_show_path(@socket, :show, address.uuid) %></span>
+          <span><%= live_patch "Edit", to: Routes.address_index_path(@socket, :edit, address.uuid) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: address.uuid, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Address", to: Routes.address_index_path(@socket, :new) %></span>

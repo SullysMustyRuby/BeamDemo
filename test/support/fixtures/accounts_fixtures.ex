@@ -28,4 +28,23 @@ defmodule BeamDemo.AccountsFixtures do
     [_, token | _] = String.split(captured_email.text_body, "[TOKEN]")
     token
   end
+
+  @doc """
+  Generate a address.
+  """
+  def address_fixture(attrs \\ %{}) do
+    {:ok, address} =
+      attrs
+      |> Enum.into(%{
+        city: "some city",
+        state_code: "some state_code",
+        street_1: "some street_1",
+        street_2: "some street_2",
+        user_uuid: "some user_uuid",
+        zip_code: "some zip_code"
+      })
+      |> BeamDemo.Accounts.create_address()
+
+    address
+  end
 end

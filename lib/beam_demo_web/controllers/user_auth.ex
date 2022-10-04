@@ -4,7 +4,7 @@ defmodule BeamDemoWeb.UserAuth do
 
   alias BeamDemo.Accounts
   alias BeamDemoWeb.Router.Helpers, as: Routes
-  alias BeamDemoWeb.{AmUserAuth, DbUserAuth}
+  alias BeamDemoWeb.UserAuth
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -26,7 +26,7 @@ defmodule BeamDemoWeb.UserAuth do
   if you are not using LiveView.
   """
   def log_in_user(conn, user, params \\ %{}) do
-    token = Accounts.generate_am_user_session_token(user)
+    token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
     conn
@@ -67,7 +67,7 @@ defmodule BeamDemoWeb.UserAuth do
   """
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
-    user_token && Accounts.delete_am_session_token(user_token)
+    user_token && Accounts.delete_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       BeamDemoWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
@@ -85,7 +85,7 @@ defmodule BeamDemoWeb.UserAuth do
   """
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
-    user = user_token && Accounts.get_am_user_by_session_token(user_token)
+    user = user_token && Accounts.get_user_by_session_token(user_token)
 
     assign(conn, :current_user, user)
   end

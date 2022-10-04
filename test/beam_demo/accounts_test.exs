@@ -517,4 +517,90 @@ defmodule BeamDemo.AccountsTest do
       refute inspect(%DbUser{password: "123456"}) =~ "password: \"123456\""
     end
   end
+
+  describe "addresses" do
+    alias BeamDemo.Accounts.Address
+
+    import BeamDemo.AccountsFixtures
+
+    @invalid_attrs %{
+      city: nil,
+      state_code: nil,
+      street_1: nil,
+      street_2: nil,
+      user_uuid: nil,
+      zip_code: nil
+    }
+
+    test "list_addresses/0 returns all addresses" do
+      address = address_fixture()
+      assert Accounts.list_addresses() == [address]
+    end
+
+    test "get_address!/1 returns the address with given id" do
+      address = address_fixture()
+      assert Accounts.get_address!(address.id) == address
+    end
+
+    test "create_address/1 with valid data creates a address" do
+      valid_attrs = %{
+        city: "some city",
+        state_code: "some state_code",
+        street_1: "some street_1",
+        street_2: "some street_2",
+        user_uuid: "some user_uuid",
+        zip_code: "some zip_code"
+      }
+
+      assert {:ok, %Address{} = address} = Accounts.create_address(valid_attrs)
+      assert address.city == "some city"
+      assert address.state_code == "some state_code"
+      assert address.street_1 == "some street_1"
+      assert address.street_2 == "some street_2"
+      assert address.user_uuid == "some user_uuid"
+      assert address.zip_code == "some zip_code"
+    end
+
+    test "create_address/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_address(@invalid_attrs)
+    end
+
+    test "update_address/2 with valid data updates the address" do
+      address = address_fixture()
+
+      update_attrs = %{
+        city: "some updated city",
+        state_code: "some updated state_code",
+        street_1: "some updated street_1",
+        street_2: "some updated street_2",
+        user_uuid: "some updated user_uuid",
+        zip_code: "some updated zip_code"
+      }
+
+      assert {:ok, %Address{} = address} = Accounts.update_address(address, update_attrs)
+      assert address.city == "some updated city"
+      assert address.state_code == "some updated state_code"
+      assert address.street_1 == "some updated street_1"
+      assert address.street_2 == "some updated street_2"
+      assert address.user_uuid == "some updated user_uuid"
+      assert address.zip_code == "some updated zip_code"
+    end
+
+    test "update_address/2 with invalid data returns error changeset" do
+      address = address_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_address(address, @invalid_attrs)
+      assert address == Accounts.get_address!(address.id)
+    end
+
+    test "delete_address/1 deletes the address" do
+      address = address_fixture()
+      assert {:ok, %Address{}} = Accounts.delete_address(address)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_address!(address.id) end
+    end
+
+    test "change_address/1 returns a address changeset" do
+      address = address_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_address(address)
+    end
+  end
 end

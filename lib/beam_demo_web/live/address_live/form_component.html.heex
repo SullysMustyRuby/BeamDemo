@@ -1,0 +1,37 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={:address}
+    id="address-form"
+    phx-target={@myself}
+    phx-submit="save">
+  
+    <%= label f, :street_1 %>
+    <%= text_input f, :street_1, value: @address.street_1 %>
+    <%= error_tag f, :street_1 %>
+  
+    <%= label f, :street_2 %>
+    <%= text_input f, :street_2, value: @address.street_2 %>
+    <%= error_tag f, :street_2 %>
+  
+    <%= label f, :city %>
+    <%= text_input f, :city, value: @address.city %>
+    <%= error_tag f, :city %>
+  
+    <%= label f, :state_code %>
+    <%= select f, :state_code, @states, selected: @address.state_code %>
+    <%= error_tag f, :state_code %>
+  
+    <%= label f, :zip_code %>
+    <%= text_input f, :zip_code, value: @address.zip_code %>
+    <%= error_tag f, :zip_code %>
+
+    <%= hidden_input f, :user_uuid, value: @current_user.uuid %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>

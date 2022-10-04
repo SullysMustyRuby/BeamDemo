@@ -28,26 +28,17 @@ defmodule BeamDemoWeb.Router do
   scope "/", BeamDemoWeb do
     pipe_through [:browser]
 
-    delete "/users/log_out", UserSessionController, :delete
-    # get "/db_users/confirm", DbUserConfirmationController, :new
-    # post "/db_users/confirm", DbUserConfirmationController, :create
-    # get "/db_users/confirm/:token", DbUserConfirmationController, :edit
-    # post "/db_users/confirm/:token", DbUserConfirmationController, :update
+    delete "/log_out", UserSessionController, :delete
   end
 
   scope "/", BeamDemoWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
+    get "/login", UserSessionController, :new
+    post "/login", UserSessionController, :create
 
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
-
-    # get "/db_users/reset_password", DbUserResetPasswordController, :new
-    # post "/db_users/reset_password", DbUserResetPasswordController, :create
-    # get "/db_users/reset_password/:token", DbUserResetPasswordController, :edit
-    # put "/db_users/reset_password/:token", DbUserResetPasswordController, :update
   end
 
   scope "/", BeamDemoWeb do
@@ -55,12 +46,24 @@ defmodule BeamDemoWeb.Router do
 
     live_session :default, on_mount: BeamDemoWeb.UserAuthLive do
       live "/guess", WrongLive
+      live "/address", AddressLive.Index, :index
+      live "/address/new", AddressLive.Index, :new
+      live "/address/:uuid/edit", AddressLive.Index, :edit
+
+      live "/address/:uuid/", AddressLive.Show, :show
+      live "/address/:uuid/show/edit", AddressLive.Show, :edit
+
+      live "/settings", SettingLive.Index, :index
+      live "/settings/new", SettingLive.Index, :new
+      live "/settings/:name/edit", SettingLive.Index, :edit
+
+      live "/settings/:name/", SettingLive.Show, :show
+      live "/settings/:name/show/edit", SettingLive.Show, :edit
     end
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     post "/users/settings", UserSettingsController, :update
-    # get "/db_users/settings/confirm_email/:token", DbUserSettingsController, :confirm_email
   end
 
   if Mix.env() in [:dev, :test] do

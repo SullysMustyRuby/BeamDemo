@@ -1,0 +1,31 @@
+<h1>Show Address</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.setting_show_path(@socket, :show, @setting.key_name)}>
+    <.live_component
+      module={BeamDemoWeb.SettingLive.FormComponent}
+      id={@setting.key_name}
+      title={@page_title}
+      action={@live_action}
+      setting={@setting}
+      return_to={Routes.setting_show_path(@socket, :show, @setting.key_name)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @setting.key_name %>
+  </li>
+
+  <li>
+    <strong>Value:</strong>
+    <%= @setting.value %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.setting_show_path(@socket, :edit, @setting.key_name), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.setting_index_path(@socket, :index), class: "button" %></span>

@@ -1,0 +1,23 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={:setting}
+    id="setting-form"
+    phx-target={@myself}
+    phx-submit="save">
+  
+    <%= label f, :key_name %>
+    <%= text_input f, :key_name, value: @setting.key_name %>
+    <%= error_tag f, :key_name %>
+  
+    <%= label f, :value %>
+    <%= text_input f, :value, value: @setting.value %>
+    <%= error_tag f, :value %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>

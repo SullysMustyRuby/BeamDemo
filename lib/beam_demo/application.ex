@@ -9,13 +9,16 @@ defmodule BeamDemo.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
+      BeamDemo.Utils.SettingStore,
       BeamDemo.Repo,
       # Start the Telemetry supervisor
       BeamDemoWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: BeamDemo.PubSub},
-      BeamDemo.Accounts.AmUserStore,
-      BeamDemo.Accounts.AmUserTokenStore,
+      BeamDemo.Accounts.UserStore,
+      BeamDemo.Accounts.UserTokenStore,
+      BeamDemo.Accounts.AddressStore,
+      BeamDemo.Utils.StateCodeStore,
       # Start the Endpoint (http/https)
       BeamDemoWeb.Endpoint
       # Start a worker by calling: BeamDemo.Worker.start_link(arg)
