@@ -1,5 +1,6 @@
 defmodule BeamDemo.Accounts.User do
-  use ActiveMemory.Table
+  use ActiveMemory.Table,
+    options: [disc_copies: [:mnesia_manager@localhost]]
 
   attributes auto_generate_uuid: true do
     field :email
@@ -7,8 +8,8 @@ defmodule BeamDemo.Accounts.User do
     field :deleted_at
   end
 
-  def registration_changeset(%__MODULE__{} = user, attrs) do
-    attrs
+  def registration_changeset(%__MODULE__{} = user, params) do
+    params
     |> cast(user)
     |> maybe_hash_password()
     |> to_struct()
@@ -17,6 +18,18 @@ defmodule BeamDemo.Accounts.User do
   def update_email_changeset(%__MODULE__{} = user, %{"email" => email}) do
     %{user | email: email}
   end
+
+  def update_password_changeset(%__MODULE__{} = user, %{
+        "password" => password,
+        "password_confirmation" => password
+      }) do
+    %{password: password, hashed_password: nil}
+    |> maybe_hash_password()
+    |> to_struct()
+  end
+
+  def update_password_changeset(_user, _params),
+    do: {:error, "password and password_confirmation do not match"}
 
   def valid_password?(%__MODULE__{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do

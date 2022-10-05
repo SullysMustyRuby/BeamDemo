@@ -56,21 +56,28 @@ defmodule BeamDemo.Accounts do
     end
   end
 
-  def register_user(attrs) do
+  def register_user(params) do
     %User{}
-    |> User.registration_changeset(attrs)
+    |> User.registration_changeset(params)
     |> UserStore.write()
   end
 
-  def apply_user_email(user, password, attrs) do
+  def apply_user_email(user, password, params) do
     if User.valid_password?(user, password) do
       user
-      |> User.update_email_changeset(attrs)
+      |> User.update_email_changeset(params)
       |> UserStore.write()
     end
   end
 
   def update_user_password(user, password, params) do
+    with true <- User.valid_password?(user, password),
+         %User{} = updated_user <- User.update_password_changeset(user, params) do
+      UserStore.write(updated_user)
+    else
+      false -> {:error, "invalid password"}
+      {:error, message} -> {:error, message}
+    end
   end
 
   def generate_user_session_token(user) do
@@ -94,4 +101,6 @@ defmodule BeamDemo.Accounts do
     UserTokenStore.withdraw(%{token: token})
     :ok
   end
+
+  def refresh_user_tokens, do: UserTokenStore.refresh()
 end

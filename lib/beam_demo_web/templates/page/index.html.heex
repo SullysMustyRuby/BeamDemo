@@ -7,10 +7,18 @@
     <%= if assigns[:current_user] do %>
     <ul>
       <li><%= link "Addresses", to: Routes.address_index_path(@conn, :index) %></li>
-      <li><%= link "Application Configs", to: Routes.setting_index_path(@conn, :index) %></li>
+      <li><%= link "Application Settings", to: Routes.setting_index_path(@conn, :index) %></li>
       <li><%= link "Account Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
     </ul>
     <% end %>
-    
+    <h3>Adapters</h3>
+    <ul>
+      <li>Address: <%= BeamDemo.Accounts.Address.__attributes__(:adapter) %></li>
+      <li>User: <%= BeamDemo.Accounts.User.__attributes__(:adapter) %></li>
+      <li>UserToken: <%= BeamDemo.Accounts.UserToken.__attributes__(:adapter) %></li>
+      <li>Setting: <%= BeamDemo.Utils.Setting.__attributes__(:adapter) %></li>
+      <li>StateCode: <%= BeamDemo.Utils.StateCode.__attributes__(:adapter) %></li>
+    </ul>
+
   </article>
 </section>

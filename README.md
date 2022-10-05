@@ -17,3 +17,16 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+Start the mnesia manager:
+```bash
+iex --sname mnesia_manager@localhost -S mix
+```
+In a second terminal start this app:
+```bash
+iex --sname demo1@localhost -S mix phx.server
+```
+In third terminal adjust the endpoint port and then start this app:
+```bash
+iex --sname demo2@localhost -S mix phx.server
+````

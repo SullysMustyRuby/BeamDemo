@@ -50,3 +50,5 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+# config :beam_demo, mnesia_manager_options: [disc_copies: [:mnesia_manager@localhost]]

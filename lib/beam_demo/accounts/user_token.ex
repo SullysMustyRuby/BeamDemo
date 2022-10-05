@@ -1,5 +1,6 @@
 defmodule BeamDemo.Accounts.UserToken do
-  use ActiveMemory.Table
+  use ActiveMemory.Table,
+    options: [disc_copies: [:mnesia_manager@localhost]]
 
   @rand_size 32
 

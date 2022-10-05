@@ -1,5 +1,6 @@
 defmodule BeamDemo.Accounts.Address do
-  use ActiveMemory.Table
+  use ActiveMemory.Table,
+    options: [disc_copies: [:mnesia_manager@localhost]]
 
   attributes auto_generate_uuid: true do
     field :user_uuid
@@ -10,9 +11,6 @@ defmodule BeamDemo.Accounts.Address do
     field :zip_code
   end
 
-  @doc false
-
-  @doc false
   def changeset(address, attrs) do
     attrs
     |> cast(address)

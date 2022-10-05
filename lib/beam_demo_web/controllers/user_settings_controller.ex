@@ -4,8 +4,6 @@ defmodule BeamDemoWeb.UserSettingsController do
   alias BeamDemo.Accounts
   alias BeamDemoWeb.UserAuth
 
-  # plug :assign_email_and_password_changesets
-
   def edit(conn, _params) do
     conn
     |> assign(:error_messages, nil)
@@ -27,8 +25,8 @@ defmodule BeamDemoWeb.UserSettingsController do
 
       {:error, message} ->
         conn
-        |> assign(:error_messages, message)
-        |> render(conn, "edit.html")
+        |> put_flash(:error, message)
+        |> redirect(to: Routes.user_settings_path(conn, :edit))
     end
   end
 
@@ -40,13 +38,13 @@ defmodule BeamDemoWeb.UserSettingsController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Password updated successfully.")
-        |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
+        |> put_session(:user_return_to, "/")
         |> UserAuth.log_in_user(user)
 
       {:error, message} ->
         conn
-        |> assign(:error_messages, message)
-        |> render(conn, "edit.html")
+        |> put_flash(:error, message)
+        |> redirect(to: Routes.user_settings_path(conn, :edit))
     end
   end
 
