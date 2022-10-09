@@ -1,6 +1,6 @@
 defmodule BeamDemo.Accounts.User do
   use ActiveMemory.Table,
-    options: [disc_copies: [:mnesia_manager@localhost]]
+    options: Application.get_env(:beam_demo, :active_memory_options)
 
   attributes auto_generate_uuid: true do
     field :email
@@ -19,7 +19,7 @@ defmodule BeamDemo.Accounts.User do
     %{user | email: email}
   end
 
-  def update_password_changeset(%__MODULE__{} = user, %{
+  def update_password_changeset(%__MODULE__{}, %{
         "password" => password,
         "password_confirmation" => password
       }) do

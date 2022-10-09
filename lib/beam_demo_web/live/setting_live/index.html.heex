@@ -37,5 +37,6 @@
     <% end %>
   </tbody>
 </table>
-
+<span><%= link "Reload All Settings", to: "#", phx_click: "reload", data: [confirm: "Are you sure?"] %></span>
+<br/>
 <span><%= live_patch "New Setting", to: Routes.setting_index_path(@socket, :new) %></span>

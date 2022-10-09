@@ -1,6 +1,6 @@
 defmodule BeamDemo.Accounts.UserToken do
   use ActiveMemory.Table,
-    options: [disc_copies: [:mnesia_manager@localhost]]
+    options: Application.get_env(:beam_demo, :active_memory_options)
 
   @rand_size 32
 

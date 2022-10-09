@@ -84,3 +84,5 @@ config :libcluster,
       ]
     ]
   ]
+
+config :beam_demo, active_memory_options: []

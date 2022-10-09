@@ -39,6 +39,28 @@ select {
   font-weight: 200;
   font-size: 120%;
 }
+.purple-phx-hero {
+  text-align: center;
+  border-bottom: 1px solid #e3e3e3;
+  background: #9370DB;
+  border-radius: 6px;
+  padding: 3em 3em 1em;
+  margin-bottom: 3rem;
+  color: white;
+  font-weight: 200;
+  font-size: 120%;
+}
+.green-phx-hero {
+  text-align: center;
+  border-bottom: 1px solid #e3e3e3;
+  background: #006400;
+  border-radius: 6px;
+  padding: 3em 3em 1em;
+  margin-bottom: 3rem;
+  color: white;
+  font-weight: 200;
+  font-size: 120%;
+}
 .phx-hero input {
   background: #ffffff;
 }

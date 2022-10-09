@@ -6,9 +6,7 @@ defmodule BeamDemoWeb.SettingLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok,
-     socket
-     |> assign(:settings, list_settings())}
+    {:ok, assign(socket, :settings, list_settings())}
   end
 
   @impl true
@@ -38,6 +36,12 @@ defmodule BeamDemoWeb.SettingLive.Index do
   def handle_event("delete", %{"id" => key_name}, socket) do
     setting = Utils.get_setting!(key_name)
     :ok = Utils.delete_setting(setting)
+
+    {:noreply, assign(socket, :settings, list_settings())}
+  end
+
+  def handle_event("reload", _params, socket) do
+    Utils.reload_settings()
 
     {:noreply, assign(socket, :settings, list_settings())}
   end

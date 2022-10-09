@@ -48,4 +48,13 @@ defmodule BeamDemo.Utils do
       _ -> :ok
     end
   end
+
+  def reload_settings do
+    SettingStore.delete_all()
+    {seeds, _} = Path.expand("setting_seeds.exs", :code.priv_dir(:beam_demo)) |> Code.eval_file()
+
+    for seed <- seeds do
+      SettingStore.write(seed)
+    end
+  end
 end

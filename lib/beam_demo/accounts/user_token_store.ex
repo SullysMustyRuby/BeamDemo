@@ -8,7 +8,7 @@ defmodule BeamDemo.Accounts.UserTokenStore do
   alias BeamDemo.Utils
 
   def initial_state do
-    refresh_seconds = Utils.get_setting_value!("token_refresh_seconds")
+    refresh_seconds = get_refresh_seconds()
     Process.send_after(self(), :refresh, refresh_seconds * 1000)
     started_at = DateTime.utc_now()
     next_refresh = DateTime.add(started_at, refresh_seconds, :millisecond)
@@ -38,11 +38,18 @@ defmodule BeamDemo.Accounts.UserTokenStore do
       delete(bad_token)
     end
 
-    refresh_seconds = Utils.get_setting_value!("token_refresh_seconds")
+    refresh_seconds = get_refresh_seconds()
     next_refresh = DateTime.utc_now() |> DateTime.add(refresh_seconds, :millisecond)
 
     Process.send_after(self(), :refresh, refresh_seconds * 1000)
     next_refresh
+  end
+
+  def get_refresh_seconds do
+    case Utils.get_setting_value!("token_refresh_seconds") do
+      seconds when is_binary(seconds) -> String.to_integer(seconds)
+      seconds when is_integer(seconds) -> seconds
+    end
   end
 
   defp expired_query do

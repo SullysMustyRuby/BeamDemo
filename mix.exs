@@ -33,8 +33,9 @@ defmodule BeamDemo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 3.0"},
+      # {:active_memory, path: "/Users/erinboeger/ElixirApps/mnesia_manager/active_memory"},
       {:active_memory, "~> 0.2.3"},
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.6.10"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
