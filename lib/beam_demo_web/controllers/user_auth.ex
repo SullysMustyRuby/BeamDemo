@@ -3,8 +3,6 @@ defmodule BeamDemoWeb.UserAuth do
   import Phoenix.Controller
 
   alias BeamDemo.Accounts
-  alias BeamDemoWeb.Router.Helpers, as: Routes
-  alias BeamDemoWeb.UserAuth
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change

@@ -52,7 +52,7 @@ defmodule BeamDemoWeb.WrongLive do
     )
   end
 
-  def handle_guess(number, guess, socket) do
+  def handle_guess(_number, guess, socket) do
     assign(
       socket,
       message: "Your guess: #{guess}. Wrong. Guess again. ",

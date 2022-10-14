@@ -2,7 +2,6 @@ defmodule BeamDemoWeb.UserRegistrationController do
   use BeamDemoWeb, :controller
 
   alias BeamDemo.Accounts
-  alias BeamDemo.Accounts.User
   alias BeamDemoWeb.UserAuth
 
   def new(conn, _params) do

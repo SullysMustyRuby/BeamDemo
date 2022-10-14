@@ -8,6 +8,7 @@ defmodule BeamDemoWeb.AddressLive.FormComponent do
     {:ok, assign(socket, assigns)}
   end
 
+  @impl true
   def handle_event("save", %{"address" => address_params}, socket) do
     save_address(
       socket,

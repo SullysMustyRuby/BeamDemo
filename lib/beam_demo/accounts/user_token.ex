@@ -1,6 +1,9 @@
 defmodule BeamDemo.Accounts.UserToken do
   use ActiveMemory.Table,
-    options: Application.get_env(:beam_demo, :active_memory_options)
+    type: :ets
+
+  # options: Application.get_env(:beam_demo, :active_memory_options)
+  # options: Application.get_env(:beam_demo, :active_memory_options) ++ [ram_copies: []]
 
   @rand_size 32
 

@@ -1,6 +1,8 @@
 defmodule BeamDemo.Accounts.Address do
   use ActiveMemory.Table,
-    options: Application.get_env(:beam_demo, :active_memory_options)
+    type: :ets
+
+  # options: Application.get_env(:beam_demo, :active_memory_options)
 
   attributes auto_generate_uuid: true do
     field :user_uuid

@@ -1,5 +1,5 @@
 %{
-  "active_memory": {:hex, :active_memory, "0.2.3", "3665760d669f85115e511587ac8333eb73de84863ce6bdb27c039403e0119324", [:mix], [{:uuid, "~> 1.1", [hex: :uuid, repo: "hexpm", optional: false]}], "hexpm", "a47b7c9439095393465d8264acee44d1a5e2a850fb200da5605444075d60f9cd"},
+  "active_memory": {:hex, :active_memory, "0.2.4", "7f0cb8ead4aa0c3f546228dfceea788e5d8cdb3d64d3956bf9152c3ef4c88dcb", [:mix], [{:uuid, "~> 1.1", [hex: :uuid, repo: "hexpm", optional: false]}], "hexpm", "15f837008632d02155847c981f1a83b16d09a122eeaa9f863caeeb87095a01b6"},
   "bcrypt_elixir": {:hex, :bcrypt_elixir, "3.0.1", "9be815469e6bfefec40fa74658ecbbe6897acfb57614df1416eeccd4903f602c", [:make, :mix], [{:comeonin, "~> 5.3", [hex: :comeonin, repo: "hexpm", optional: false]}, {:elixir_make, "~> 0.6", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm", "486bb95efb645d1efc6794c1ddd776a186a9a713abf06f45708a6ce324fb96cf"},
   "castore": {:hex, :castore, "0.1.18", "deb5b9ab02400561b6f5708f3e7660fc35ca2d51bfc6a940d2f513f89c2975fc", [:mix], [], "hexpm", "61bbaf6452b782ef80b33cdb45701afbcf0a918a45ebe7e73f1130d661e66a06"},
   "comeonin": {:hex, :comeonin, "5.3.3", "2c564dac95a35650e9b6acfe6d2952083d8a08e4a89b93a481acb552b325892e", [:mix], [], "hexpm", "3e38c9c2cb080828116597ca8807bb482618a315bfafd98c90bc22a821cc84df"},
