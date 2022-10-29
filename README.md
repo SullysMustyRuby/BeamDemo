@@ -36,6 +36,8 @@ iex --sname demo2@localhost -S mix phx.server
 Generally the demo1 is: http://localhost:4000 
 and demo2 is: http://localhost:4001
 
+6. Login as any one of the users in the `/priv/user_seeds.exs` file.
+
 ## Demo Play
 - Change to all tables to :ets 
 - Adjust table types: ram_copies, disc_copies, etc.
@@ -44,3 +46,4 @@ and demo2 is: http://localhost:4001
 - Create a new module using a `Table` and `Store`
 - Create more complex queries using the ActiveMemory Key Value syntax
 - Create more complex queries using the ActiveMemory [match](https://hexdocs.pm/active_memory/ActiveMemory.Query.html#module-the-match-query-syntax) syntax
+- Change the `hero_css` setting from: `green-phx-hero` to: `purple-phx-hero` as a simple example of updating an application setting while the application is running. 
