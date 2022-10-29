@@ -85,5 +85,4 @@ config :libcluster,
     ]
   ]
 
-config :beam_demo, active_memory_options: [ram_copies: [node(), :mnesia_manager@localhost]]
-# config :beam_demo, active_memory_options: [disc_copies: [:mnesia_manager@localhost]]
+config :beam_demo, active_memory_options: [disc_copies: [:mnesia_manager@localhost]]

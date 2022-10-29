@@ -1,8 +1,6 @@
 defmodule BeamDemo.Accounts.User do
   use ActiveMemory.Table,
-    type: :ets
-
-  # options: Application.get_env(:beam_demo, :active_memory_options)
+    options: Application.get_env(:beam_demo, :active_memory_options)
 
   attributes auto_generate_uuid: true do
     field :email

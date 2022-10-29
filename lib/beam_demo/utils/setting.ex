@@ -2,8 +2,6 @@ defmodule BeamDemo.Utils.Setting do
   use ActiveMemory.Table,
     type: :ets
 
-  # options: Application.get_env(:beam_demo, :active_memory_options)
-
   attributes do
     field :key_name
     field :value
