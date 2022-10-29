@@ -1,6 +1,8 @@
 # BeamDemo
 
 A demo application of [ActiveMemory](https://hex.pm/packages/active_memory) hex package
+Initially this uses the [MnesiaManager](https://github.com/SullysMustyRuby/ActiveMemoryManager) application for running Mnesia. 
+However you can configure the application to boot alone without the MnesiaManager.
 
 ## Demo setup
 1. Run `mix deps.get` on this app
@@ -29,7 +31,10 @@ Generally the demo1 is: http://localhost:4000
 and demo2 is: http://localhost:4001
 
 ## Demo Play
-- Start with all tables as :ets 
+- Change to all tables as :ets 
 - Adjust table types: ram_copies, disc_copies, etc.
 - Experiment with Store initial_state, seeding, and before init options
 - Start more copies of this app for a larger cluster
+- Create a new module using a `Table` and `Store`
+- Create more complex queries using the ActiveMemory Key Value syntax
+- Create more complex queries using the ActiveMemory [match](https://hexdocs.pm/active_memory/ActiveMemory.Query.html#module-the-match-query-syntax) syntax
