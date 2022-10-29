@@ -1,4 +1,15 @@
-<h1>Listing Addresses</h1>
+<h1>Listing Various Sample Settings</h1>
+<p>
+  This is an example of using ActiveMemory to maintain application settings and configurations. The configurations
+  are by default stored in an :ets table, but can easily be changed into an :mnesia table at the <%= link "ActiveMemory.Table options.", to: "https://hexdocs.pm/active_memory/ActiveMemory.Table.html#module-options-when-creating-tables", target: "_blank" %>
+</p>
+<p>
+  Providing a simple UI such as this will allow your Admins to update or change settings on the 
+  application while running.
+  The settings below are loaded from a seeds file at application boot using <%= link "ActiveMemory.Store seeding.", to: "https://hexdocs.pm/active_memory/ActiveMemory.Store.html#module-seeding", target: "_blank" %>
+</p>
+
+
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.setting_index_path(@socket, :index)}>

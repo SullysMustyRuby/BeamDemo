@@ -1,17 +1,24 @@
 <%= content_tag :section, class: @class do %>
   <h1><%= gettext "Welcome to ActiveMemory Demo!" %></h1>
+  <p>
+    Demonstrating some of the abilities and use cases of ActiveMemory
+  </p>
 <% end %>
 
 <section class="row">
   <article class="column">
+    <p>
+      Below are links to modules implementing in memory tables using  <%= link "ActiveMemory", to: "https://hexdocs.pm/active_memory/ActiveMemory.html", target: "_blank" %> 
+    </p>
     <%= if assigns[:current_user] do %>
     <ul>
-      <li><%= link "Addresses", to: Routes.address_index_path(@conn, :index) %></li>
+      <li><%= link "User Addresses", to: Routes.address_index_path(@conn, :index) %></li>
       <li><%= link "My Account Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
       <li><%= link "Configuration Settings", to: Routes.setting_index_path(@conn, :index) %></li>
     </ul>
     <% end %>
-    <h3>Adapters</h3>
+    <h3>Adapters Status</h3>
+    <p>This shows what tables are using which adapters within ActiveMemory</p>
     <ul>
       <li>Address: <%= BeamDemo.Accounts.Address.__attributes__(:adapter) %></li>
       <li>User: <%= BeamDemo.Accounts.User.__attributes__(:adapter) %></li>
